@@ -19,13 +19,15 @@ public class DruidConfig {
     @ConfigurationProperties(prefix = "spring.datasource")
     @Bean
     public DataSource druidDataSource() {
-        return new DruidDataSource();
+        DruidDataSource druidDataSource = new DruidDataSource();
+        return druidDataSource;
     }
 
     //后台监控
     @Bean
     public ServletRegistrationBean servletRegistrationBean() {
         ServletRegistrationBean<StatViewServlet> bean = new ServletRegistrationBean<>(new StatViewServlet(), "/druid/*");
+//        ServletRegistrationBean<StatViewServlet> bean = new ServletRegistrationBean<>(new StatViewServlet());
 
         //后台需要别人登陆的时候，账号密码配置
         HashMap<String, String> initParameters = new HashMap<>();
@@ -40,7 +42,7 @@ public class DruidConfig {
         return bean;
     }
 
-//    @Bean
+    @Bean
     public FilterRegistrationBean filterRegistrationBean() {
 
         FilterRegistrationBean<Filter> filterFilterRegistrationBean = new FilterRegistrationBean<>();
