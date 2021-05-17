@@ -16,8 +16,8 @@ import java.util.HashMap;
 @Configuration
 public class DruidConfig {
 
-    @ConfigurationProperties(prefix = "spring.datasource")
     @Bean
+    @ConfigurationProperties(prefix = "spring.datasource.druid")
     public DataSource druidDataSource() {
         DruidDataSource druidDataSource = new DruidDataSource();
         return druidDataSource;
@@ -27,13 +27,12 @@ public class DruidConfig {
     @Bean
     public ServletRegistrationBean servletRegistrationBean() {
         ServletRegistrationBean<StatViewServlet> bean = new ServletRegistrationBean<>(new StatViewServlet(), "/druid/*");
-//        ServletRegistrationBean<StatViewServlet> bean = new ServletRegistrationBean<>(new StatViewServlet());
 
         //后台需要别人登陆的时候，账号密码配置
         HashMap<String, String> initParameters = new HashMap<>();
         //增加配置
-        initParameters.put("loginUsername", "admin");
-        initParameters.put("loginPassword", "123456");
+        initParameters.put("loginUsername", "a");
+        initParameters.put("loginPassword", "a");
 
         //允许谁可以访问
 //        initParameters.put("allow", "");
@@ -42,7 +41,7 @@ public class DruidConfig {
         return bean;
     }
 
-    @Bean
+//    @Bean
     public FilterRegistrationBean filterRegistrationBean() {
 
         FilterRegistrationBean<Filter> filterFilterRegistrationBean = new FilterRegistrationBean<>();
